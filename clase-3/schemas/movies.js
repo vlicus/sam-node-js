@@ -12,14 +12,29 @@ const movieSchema = z.object({
     message: "Poster must be a valid URL",
   }),
   genre: z.array(
-    z.enum(["Action", "Adventure", "Comedy", "Drama", "Fantasy", "Horror", "Thriller", "Scy-Fi"])
+    z.enum([
+      "Action",
+      "Crime",
+      "Adventure",
+      "Comedy",
+      "Drama",
+      "Fantasy",
+      "Horror",
+      "Thriller",
+      "Scy-Fi",
+    ])
   ),
 });
 
-function validateMovie(object) {
-  return movieSchema.safeParse(object);
+function validateMovie(shape) {
+  return movieSchema.safeParse(shape);
+}
+
+function validatePartialMovie(input) {
+  return movieSchema.partial().safeParse(input);
 }
 
 module.exports = {
   validateMovie,
+  validatePartialMovie,
 };
